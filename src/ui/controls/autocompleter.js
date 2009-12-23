@@ -43,7 +43,7 @@
       var iLayout = this.input.getLayout();      
       this.menu.element.setStyle({
         left: iLayout.get('left') + 'px',
-        top:  (iLayout.get('top') + iLayout.get('margin-box-height')) + 'px'
+        top:  (/*iLayout.get('top') + */iLayout.get('margin-box-height')) + 'px'
       });
       
       this.observers = {
@@ -63,6 +63,9 @@
       
       this.menu.element.observe('ui:menu:selected', 
        this.observers.selected);
+       
+      // added
+      document.observe('choices:updated', this.findChoices.bind(this));
     },
     
     _schedule: function() {
@@ -138,7 +141,9 @@
     },
      
     _change: function() {
-      this.findChoices();
+      // added
+      document.fire('input:changed');
+      // this.findChoices();
     },
     
     /**
